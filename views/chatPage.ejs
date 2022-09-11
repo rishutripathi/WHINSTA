@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/chatPage.css">
+</head>
+<body>
+    <p>Welcome to 'Whinsta'<em>&nbsp;A Real Time Chat Application</em>!!</p>
+    <div class="chat-container">
+        <div class="chat-header">
+          <h2 id="Whinsta">Whinsta</h2><h3 class="name" id="your-name">Name</h3>
+        </div>
+        <div class="chat-section">
+            <div class="main-wrapper">
+                <div class="chat-content">
+                    <div class="message">
+                         <div class="message-row other-message">
+                           
+                             </div>
+                         <div class="message-row your-message">
+                            
+                             </div>
+                         </div>
+                    </div>
+                    <form class="msg-text" method="post" name="gps">
+                        <input type="text" name="msg" id="msg" placeholder="type message..." autocomplete="off">
+                        <button type="submit" id="button-send">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/chat.js"></script>
+</body>
+</html>

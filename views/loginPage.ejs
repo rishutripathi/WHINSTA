@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="../public/loginPage.css">
+</head>
+<body>
+    <h3>Welcome to!</h3><h2 style="text-align:center; color:tomato;">Whinsta</h2>
+    <form name="loginForm" method="post" role="form">
+        <fieldset>
+          <legend>Login</legend>
+      <table name="loginTable">
+      <tr><td><label for="uname">Username </label></td><td><input id="uname" name="username" type="text">
+      <% if(err.username) {%>
+        <span style="color: red" class="simEr"><%=err.username.msg%></span>  <%}%>
+      </td></tr>
+      <tr><td><label for="pass">Password </label></td><td><input id="pass" name="password" type="text">
+       <% if(err.password) { %>
+        <span style="color: red" class="simEr"><%=err.password.msg%></span> <% } %>
+        </td></tr>
+    </table>
+      <button name="res" type="reset">Reset</button><button name="subm" type="submit">Submit</button> 
+      </fieldset>
+      <!-- <p>Don't have account?<a href="/signup"> Signup</a></p> -->
+      </form>
+</body>
+</html>

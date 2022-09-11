@@ -1,0 +1,20 @@
+*{box-sizing: border-box;
+    margin: 0;
+    padding: 0;}
+    body{margin-top: 0;}
+ 
+form{margin-top: 50px;
+width: 800px;
+font-size: 30px;
+padding: 10px;
+margin: auto;
+}
+table span.simEr{
+font-size: 16px;
+}
+label{padding: 50px;}
+body{background-color: bisque;}
+button{
+    padding: 3px;
+    margin: 3px;
+}
