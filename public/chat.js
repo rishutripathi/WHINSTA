@@ -49,3 +49,4 @@ function display(msg, type){
     document.querySelector(".message").appendChild(msgDiv);
     document.querySelector(".chat-content").scrollTop=document.querySelector(".chat-content").scrollHeight;
 }
+
