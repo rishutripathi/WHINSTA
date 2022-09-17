@@ -15,7 +15,7 @@ const teaController=require('../controllers/tea.js');
 router.get("/tea",teaController.teaOrder);                                                           //controllers
 
 router.get("/login",(req,res)=>{
-    res.render("loginPage.ejs",{title:"Login"});
+    res.render("loginPage.ejs",{title:"Login",err:""});
 });
 router.post("/login",(req,res)=>{
     // console.log(req.body.password);
@@ -92,20 +92,19 @@ model.find({usname:"rtrpwwe"})
 });
 //-------------------------------------------------------------------
 
-// router.get("",(req,res)=>{res.render('loginpage.ejs',{title:"Login", err:""})});
+router.get("",(req,res)=>{res.render('loginPage.ejs',{title:"Login", err:""})});
 
-// router.post("",bPUEncoded,
-// [check('username').notEmpty().withMessage('username missing').isEmail().withMessage("username must be email").isLength({min:4,max:20}).withMessage("Length must be greater than 3 and less than 20"),
-// check('password').notEmpty().withMessage("Password missing").matches(/^[a-zA-Z0-9]{6,9}$/).withMessage("Length must be 6-9")],
-// (req,res)=>{
-//     var error=validationResult(req);
-//     if(!error.isEmpty()){
-//     res.render("loginpage.ejs",{title:"Login", err:error.mapped()});
-//     }
-//     else
-//     //res.redirect("/app");
-//     res.render("chatPage.ejs",{title:"Home Page"});
-// });
+router.post("",bPUEncoded,
+[check('username').notEmpty().withMessage('username missing').isEmail().withMessage("username must be email").isLength({min:4,max:20}).withMessage("Length must be greater than 3 and less than 20"),
+check('password').notEmpty().withMessage("Password missing").matches(/^[a-zA-Z0-9]{6,9}$/).withMessage("Length must be 6-9")],
+(req,res)=>{
+    var error=validationResult(req);
+    if(!error.isEmpty()){
+    res.render("loginPage.ejs",{title:"Login", err:error.mapped()});
+    }
+    else
+    res.render("chatPage.ejs",{title:"Home Page"});
+});
 
 router.get("/db",(res,req)=>{
     res.render("db.ejs",{title:"Database", err:""});
