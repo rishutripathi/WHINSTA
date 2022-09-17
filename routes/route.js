@@ -1,36 +1,47 @@
 const express=require('express');
-const path=require('path');
+const router=express.Router();
 const bcrypt=require('bcrypt');
+const jwt=require("jsonwebtoken");
 const { check,validationResult }=require('express-validator');
 var model=require("../model/schema.js")
-const router=express.Router();
 const bodyParser=require('body-parser');
-const { send } = require('process');
 const bPUEncoded=bodyParser.urlencoded({extended:false});                                                               // for expr.post
 router.use(bPUEncoded);
 router.use(bodyParser.json());
+const teaController=require('../controllers/tea.js');
 
 //---------------------------------------login form---------------------
+
+router.get("/tea",teaController.teaOrder);                                                           //controllers
 
 router.get("/login",(req,res)=>{
     res.render("loginPage.ejs",{title:"Login"});
 });
 router.post("/login",(req,res)=>{
-    console.log(req.body.password);
+    // console.log(req.body.password);
     // res.status(200).json({message:"Successfully Submitted"});
-    model.find({usname:"rtrpwwe"})
-.then((data)=>{if(data.length<1)
+    model.find({usname:"rtrpwwe"}).then((data)=>{
+        if(data.length<1)
                       res.status(404).json({message:"User Not Found"});
                else{
-                      bcrypt.compare(req.body.password, data[0].passw,(err,result)=>{
-                         if(err){console.log(req.body.password);res.status(404).json({message:"Incorrect password"})}
-                         if(result){
-                            
-                            console.log(data);res.status(200).json({message:"user found",result:data})}
-                         })
-                   }
-            })                                                        
-.catch((err)=>{res.json({message:"User Not Found",errors:err})});
+                      bcrypt.compare(req.body.password, data[0].passw, (err,result)=>{
+                        if(err){res.status(400).json({message:"Some issue faced while decrypting"})}
+                        else if(!result){console.log(res.json({message:"Incorrect password"}));}              //bcrypt.compare==false
+                         else if(result){                                                                 //bcrypt.compare==true
+                            var token=jwt.sign(
+                                {
+                                    usname:data[0].usname,
+                                    usid:data[0]._id
+                                },
+                                'secret',
+                                {
+                                    expiresIn:'1h'
+                                }
+                            );
+                            console.log(data+ 'found');res.status(200).json({message:"user found",token:token}) }
+                        });
+                         }    
+            }).catch((err)=>{res.status(404).json({message:"User Not Found",errors:err})});
 });
 
 //---------------------------------------signup form-------------------
